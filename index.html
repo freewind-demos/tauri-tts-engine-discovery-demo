@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="/src/styles.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tauri · Android TTS 引擎枚举</title>
+    <script type="module" src="/src/main.ts" defer></script>
+  </head>
+
+  <body>
+    <main class="page">
+      <h1>Android TTS 引擎列表</h1>
+      <p class="lead">
+        通过 Tauri Android 插件调用系统
+        <code>PackageManager.queryIntentServices(TTS_SERVICE)</code>
+        ，枚举本机已安装的朗读引擎（含系统自带与第三方，例如讯飞语记所注册的 TTS 服务，具体取决于该应用是否导出标准 TTS 服务）。
+      </p>
+      <div class="actions">
+        <button type="button" id="refresh">刷新列表</button>
+      </div>
+      <p id="status" class="status" aria-live="polite"></p>
+      <ul id="engines" class="engines"></ul>
+    </main>
+  </body>
+</html>

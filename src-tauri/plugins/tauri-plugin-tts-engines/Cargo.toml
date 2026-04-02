@@ -1,0 +1,14 @@
+[package]
+name = "tauri-plugin-tts-engines"
+version = "0.1.0"
+description = "List Android TTS engines (system and third-party) for Tauri"
+edition = "2021"
+links = "tauri-plugin-tts-engines"
+
+[build-dependencies]
+tauri-plugin = { version = "2", features = ["build"] }
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+tauri = { version = "2" }
+thiserror = "1"
