@@ -121,7 +121,7 @@ packageManager.queryIntentServices(intent, flags)
 
 ### 第三部分：与前端、Rust 的衔接
 
-- 前端通过 `invoke("plugin:tts-engines|list_tts_engines")` 调用插件命令（Tauri 2 插件命令必须带 `plugin:<名>|<命令>` 前缀）。
+- 前端通过 `invoke("plugin:tts-engines|list_tts_engines")` 枚举引擎；`invoke("plugin:tts-engines|speak", { text, engine })` 朗读（`engine` 可省略表示系统默认）；`invoke("plugin:tts-engines|stop_speak")` 停止当前队列（Tauri 2 插件命令须带 `plugin:<名>|<命令>` 前缀）。
 - Rust 侧注册本地 crate 插件 **`tauri-plugin-tts-engines`**，在 Android 上通过 `run_mobile_plugin("listEngines", ())` 调到上述 Kotlin。
 - `src-tauri/capabilities/default.json` 中已加入 `tts-engines:allow-list-tts-engines` 权限，否则调用会被 ACL 拒绝。
 

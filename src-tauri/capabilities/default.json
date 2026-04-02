@@ -6,6 +6,8 @@
   "permissions": [
     "core:default",
     "opener:default",
-    "tts-engines:allow-list-tts-engines"
+    "tts-engines:allow-list-tts-engines",
+    "tts-engines:allow-speak",
+    "tts-engines:allow-stop-speak"
   ]
 }

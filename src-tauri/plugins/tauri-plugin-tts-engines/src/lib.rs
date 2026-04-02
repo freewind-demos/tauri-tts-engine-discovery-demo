@@ -18,7 +18,11 @@ pub use mobile::TtsEngines;
 
 pub fn init<R: Runtime>() -> TauriPlugin<R> {
     Builder::new("tts-engines")
-        .invoke_handler(tauri::generate_handler![commands::list_tts_engines])
+        .invoke_handler(tauri::generate_handler![
+            commands::list_tts_engines,
+            commands::speak,
+            commands::stop_speak
+        ])
         .setup(|app, api| {
             #[cfg(target_os = "android")]
             {

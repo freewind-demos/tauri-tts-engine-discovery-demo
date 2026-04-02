@@ -32,4 +32,56 @@ Denies the list_tts_engines command without any pre-configured scope.
 
 </td>
 </tr>
+
+<tr>
+<td>
+
+`tts-engines:allow-speak`
+
+</td>
+<td>
+
+Enables the speak command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`tts-engines:deny-speak`
+
+</td>
+<td>
+
+Denies the speak command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`tts-engines:allow-stop-speak`
+
+</td>
+<td>
+
+Enables the stop_speak command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`tts-engines:deny-stop-speak`
+
+</td>
+<td>
+
+Denies the stop_speak command without any pre-configured scope.
+
+</td>
+</tr>
 </table>

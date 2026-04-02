@@ -1,4 +1,4 @@
-const COMMANDS: &[&str] = &["list_tts_engines"];
+const COMMANDS: &[&str] = &["list_tts_engines", "speak", "stop_speak"];
 
 fn main() {
     tauri_plugin::Builder::new(COMMANDS)
