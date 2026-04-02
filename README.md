@@ -34,16 +34,59 @@ pnpm tauri dev
 ### Android 真机 / 模拟器
 
 ```bash
-pnpm tauri android dev
+pnpm android:dev
 ```
+
+（与上面等价、且补齐 `PATH` 的封装；仍可直接使用 `pnpm tauri android dev`。）
 
 连接设备或启动模拟器后，App 打开会自动拉取一次列表；也可点击「刷新列表」。
 
-若需仅构建 APK / AAB，可使用：
+若需构建 **APK**（默认 **Release**，ProGuard 压缩混淆，体积比 Debug 小很多），推荐：
+
+```bash
+pnpm android:build
+```
+
+等价于 `tauri android build --apk --ci`。若你直接用 GUI 或 IDE 跑构建、未加载 shell 里的 Rust 环境，因而出现 `rustup target add: No such file or directory`，请优先用上面的脚本，或保证本机 `PATH` 已包含 `~/.cargo/bin`。
+
+Release 通用包 APK 一般在（以 Gradle 输出为准）：
+
+`src-tauri/gen/android/app/build/outputs/apk/universal/release/`
+
+需要带调试符号、包体较大时，再打 **Debug**：
+
+```bash
+pnpm build:android:debug
+```
+
+或 `pnpm android:build:debug`。产物目录通常为 `.../apk/universal/debug/`。
+
+`pnpm build:android:release` 与 `pnpm android:build:release` 与默认的 `pnpm build:android` 相同，仅为兼容保留。
+
+也可用：
 
 ```bash
 pnpm tauri android build
 ```
+
+### Android Release 签名
+
+**Release APK 会一直带签名**：若存在 `src-tauri/gen/android/key.properties`，则用你自己的上传密钥签名；**若没有**，Gradle 会使用 Android 默认的 **debug keystore** 给 **release** 包签名（仍是混淆后的 Release 产物，只是证书与 Debug 构建相同），一般可直接装手机验证功能。
+
+要上架应用商店或长期固定证书，再在目录 `src-tauri/gen/android/` 配置 **`key.properties`**（已在 `.gitignore`，勿提交）：
+
+1. 生成 keystore（仅需做一次）：
+
+```bash
+cd src-tauri/gen/android
+keytool -genkey -v -keystore your-release.keystore -alias your-key-alias -keyalg RSA -keysize 2048 -validity 10000
+```
+
+2. `cp key.properties.example key.properties` 并按示例填写 `storeFile`（相对 `gen/android/` 的文件名）、`keyAlias`、`storePassword`、`keyPassword`。
+
+3. 再执行 `pnpm android:build`，此时 Release 会改用该正式密钥。
+
+仅本地调试且不在意体积时可用 `pnpm android:build:debug`。
 
 ## 概念讲解
 

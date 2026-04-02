@@ -1,0 +1,7 @@
+# Copy to key.properties (same directory) and fill in. key.properties is gitignored.
+# Put your .jks / .keystore file next to this example (under gen/android/).
+
+storePassword=your-store-password
+keyPassword=your-key-password
+keyAlias=your-key-alias
+storeFile=your-release.keystore

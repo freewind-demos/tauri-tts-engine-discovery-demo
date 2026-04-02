@@ -13,6 +13,12 @@ val tauriProperties = Properties().apply {
     }
 }
 
+val keyPropertiesFile = rootProject.file("key.properties")
+val keyProperties = Properties()
+if (keyPropertiesFile.exists()) {
+    keyProperties.load(keyPropertiesFile.inputStream())
+}
+
 android {
     compileSdk = 36
     namespace = "com.pengli.tauri_app"
@@ -23,6 +29,16 @@ android {
         targetSdk = 36
         versionCode = tauriProperties.getProperty("tauri.android.versionCode", "1").toInt()
         versionName = tauriProperties.getProperty("tauri.android.versionName", "1.0")
+    }
+    signingConfigs {
+        if (keyPropertiesFile.exists()) {
+            create("release") {
+                keyAlias = keyProperties.getProperty("keyAlias")!!
+                keyPassword = keyProperties.getProperty("keyPassword")!!
+                storeFile = rootProject.file(keyProperties.getProperty("storeFile")!!)
+                storePassword = keyProperties.getProperty("storePassword")!!
+            }
+        }
     }
     buildTypes {
         getByName("debug") {
@@ -43,6 +59,13 @@ android {
                     .plus(getDefaultProguardFile("proguard-android-optimize.txt"))
                     .toList().toTypedArray()
             )
+            // Always sign release APK: use upload keystore when key.properties exists,
+            // otherwise the default debug keystore (installable without extra setup).
+            signingConfig = if (keyPropertiesFile.exists()) {
+                signingConfigs.getByName("release")
+            } else {
+                signingConfigs.getByName("debug")
+            }
         }
     }
     kotlinOptions {
