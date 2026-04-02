@@ -21,6 +21,8 @@ cd /Users/peng.li/workspace/freewind-demos/tauri-tts-engine-discovery-demo
 pnpm install
 ```
 
+首次在本机编译 Android 工程时，Tauri 会在本地插件目录下生成 `android/.tauri/`（已加入 `.gitignore`），不必提交到仓库。
+
 ### 桌面端（枚举结果为空）
 
 桌面端没有实现 Android `PackageManager` 逻辑，接口仍会返回空数组，仅用于确认工程能编译运行：
