@@ -42,7 +42,9 @@ async function refresh() {
   setStatus("加载中…");
   refreshBtn.setAttribute("disabled", "true");
   try {
-    const engines = await invoke<TtsEngineInfo[]>("list_tts_engines");
+    const engines = await invoke<TtsEngineInfo[]>(
+      "plugin:tts-engines|list_tts_engines",
+    );
     setStatus(`共 ${engines.length} 个引擎（按包名去重）`);
     renderEngines(engines);
   } catch (e) {
