@@ -34,7 +34,7 @@ pub async fn speak<R: Runtime>(
     #[cfg(target_os = "android")]
     {
         let tts = app.state::<TtsEngines<R>>();
-        tts.0.run_mobile_plugin(
+        tts.0.run_mobile_plugin::<()>(
             "speak",
             SpeakPayload { text, engine },
         )?;
@@ -52,7 +52,7 @@ pub async fn stop_speak<R: Runtime>(app: AppHandle<R>) -> Result<()> {
     #[cfg(target_os = "android")]
     {
         let tts = app.state::<TtsEngines<R>>();
-        tts.0.run_mobile_plugin("stopSpeak", ())?;
+        tts.0.run_mobile_plugin::<()>("stopSpeak", ())?;
         Ok(())
     }
     #[cfg(not(target_os = "android"))]
